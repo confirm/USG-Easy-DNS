@@ -39,7 +39,7 @@ The CLI script can be installed on the USG like this:
 sudo curl -o /config/scripts/usg-easy-dns.py https://raw.githubusercontent.com/confirm/USG-Easy-DNS/master/usg-easy-dns.py
 
 # Make script executable.
-chmod u+x /config/scripts/usg-easy-dns.py
+sudo chmod u+x /config/scripts/usg-easy-dns.py
 ```
 
 The CLI script has a help flag (`-h`, ``--help``):
