@@ -121,3 +121,51 @@ Config Persistence
 **Please note, changing the configuration on the CLI directly is not persistent over USG upgrades.**
 
 If you want to make this persistent, you've to add the configuration to the ``config.gateway.json``. There's a helpful article called [UniFi - USG Advanced Configuration Using config.gateway.json](https://help.ui.com/hc/en-us/articles/215458888-UniFi-USG-Advanced-Configuration) which describes this perfectly.
+
+Here's an example ``config.gateway.json``:
+
+```
+{
+    "service":
+    {
+        "dns":
+        {
+            "forwarding":
+            {
+                "cache-size": "10000",
+                "options":
+                [
+                    "server=1.0.0.1",
+                    "server=1.1.1.1",
+                    "all-servers",
+                    "no-hosts",
+                    "addn-hosts=/config/user-data/hosts",
+                    "domain-needed",
+                    "bogus-priv",
+                    "expand-hosts",
+                    "domain=<your domain>",
+                    "local=/<your domain>/",
+                ]
+            }
+        }
+    },
+    "system":
+    {
+        "task-scheduler":
+        {
+            "task":
+            {
+                "usg-easy-dns":
+                {
+                    "crontab-spec": "* * * * *",
+                    "executable":
+                    {
+                        "arguments": "-u <your username> -p <your password> https://<your controller>:8443",
+                        "path": "/config/scripts/usg-easy-dns.py"
+                    }
+                }
+            }
+        }
+    }
+}
+```
