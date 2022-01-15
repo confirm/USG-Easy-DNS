@@ -96,7 +96,7 @@ class UniFiController:
         '''
         LOGGER.info('Getting clients')
 
-        return self._request(endpoint='s/{}/stat/sta'.format(site))['data']
+        return self._request(endpoint='s/{}/list/user'.format(site))['data']
 
     def get_fixed_ips(self, site=DEFAULT_SITE):
         '''
