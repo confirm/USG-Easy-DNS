@@ -64,7 +64,7 @@ optional arguments:
 The script is written in Python 2 and uses only the standard library, which means it has no external dependencies. You can run the script for test on any machine with Python 2 installed, for example:
 
 ```
-./usg-easy-dns.py -u "my-username" -p "my-password" -f "/tmp/hosts" https://my-unifi-controller:8443
+./usg-easy-dns.py -u <your username> -p <your password> -f "/tmp/hosts" https://<your controller>:8443
 ```
 
 **IMPORTANT NOTES:** 
@@ -80,9 +80,9 @@ Task Scheduler
 The USG has a task scheduler (i.e. cron), which can be used to run the script automatically. On the USG CLI the following configuration can be used:
 
 ```
-set system task-scheduler task update-static-hosts crontab-spec "* * * * *"
-set system task-scheduler task update-static-hosts executable path /config/scripts/usg-easy-dns.py
-set system task-scheduler task update-static-hosts executable arguments -u "my-username" -p "my-passwod" https://my-unifi-controller:8443
+set system task-scheduler task usg-easy-dns crontab-spec "* * * * *"
+set system task-scheduler task usg-easy-dns executable path /config/scripts/usg-easy-dns.py
+set system task-scheduler task usg-easy-dns executable arguments "-u <your username> -p <your password> https://<your controller>:8443"
 ```
 
 DNS Configuration
@@ -94,7 +94,7 @@ Of course the DNS server needs to be informed about this new file as well. Here'
 # Don't use the default /etc/hosts file.
 set service dns forwarding options no-hosts
 
-# Use /config/user-data/hosts instead.
+# Use the generated /config/user-data/hosts instead.
 set service dns forwarding options addn-hosts=/config/user-data/hosts 
 
 # Never forward plain names (without a dot or domain part).
@@ -110,6 +110,10 @@ set service dns forwarding options domain=<your domain>
 # Don't forward the local domain.
 set service dns forwarding options local=/<your domain>/
 ```
+
+**HINTS** 
+
+- You can use the ``service dns forwarding options addn-hosts`` directive multiple times. This can be useful if you want to have a generated hosts file, as well as a manually maintained hosts file.
 
 Config Persistence
 ------------------
