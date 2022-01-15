@@ -202,8 +202,9 @@ class DnsHosts:
         '''
         Reload dnsmasq by sending it a SIGHUP.
         '''
-        LOGGER.info('Reloading dnsmasq')
-        subprocess.check_call(['pkill', '-HUP', 'dnsmasq'])
+        if os.path.isfile('/etc/dnsmasq.conf'):
+            LOGGER.info('Reloading dnsmasq')
+            subprocess.check_call(['pkill', '-HUP', 'dnsmasq'])
 
 
 if __name__ == '__main__':
