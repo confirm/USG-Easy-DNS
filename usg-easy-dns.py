@@ -199,7 +199,10 @@ class DnsHosts:
 
 if __name__ == '__main__':
 
-    parser = argparse.ArgumentParser(description='USG Easy DNS')
+    parser = argparse.ArgumentParser(
+        description='USG Easy DNS script.',
+        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=36, width=100),
+    )
 
     parser.add_argument('-u', '--username', default=DEFAULT_USERNAME, help='UniFi username')
     parser.add_argument('-p', '--password', default=DEFAULT_PASSWORD, help='UniFi password')
