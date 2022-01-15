@@ -10,6 +10,7 @@ import json
 import os
 import re
 import ssl
+import subprocess
 import urllib
 import urllib2
 
@@ -170,7 +171,8 @@ class DnsHosts:
         '''
         Update the hosts file and notify the DNS server.
         '''
-        self.update_file(clients=clients)
+        if self.update_file(clients=clients):
+            self.reload_dnsmasq()
 
     def update_file(self, clients):
         '''
@@ -195,6 +197,13 @@ class DnsHosts:
                 file.write('{:15s} {}\n'.format(ip, host))
 
         return True
+
+    def reload_dnsmasq(self):
+        '''
+        Reload dnsmasq by sending it a SIGHUP.
+        '''
+        LOGGER.info('Reloading dnsmasq')
+        subprocess.check_call(['pkill', '-HUP', 'dnsmasq'])
 
 
 if __name__ == '__main__':
