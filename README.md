@@ -6,7 +6,7 @@ Purpose
 
 This project / repository contains a Python script and description on how to make the [UniFi Security Gateway](https://www.ui.com/unifi-routing/usg/) DNS service automatically resolve aliases (and only aliases) specified in the UniFi controller.
 
-**This means you only have to define a client alias in the UniFi UI and the DNS server is automatically updated with that entry!**
+**This means you only have to define a client alias & a fixed IP address in the UniFi UI and the DNS server is automatically updated with that entry!**
 
 Rationale
 ---------
