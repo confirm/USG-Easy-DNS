@@ -193,7 +193,7 @@ class DnsHosts:
         LOGGER.info('Changes found, updating file')
         with open(args.file, 'w') as file:
             file.write('# {}\n'.format(new_checksum))
-            for host, ip in clients:
+            for ip, host in clients:
                 file.write('{:15s} {}\n'.format(ip, host))
 
         return True
