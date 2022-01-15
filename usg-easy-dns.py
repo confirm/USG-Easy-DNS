@@ -162,7 +162,7 @@ class DnsHosts:
             with file(self.file, 'r') as fh:
                 checksum = fh.readline()[2:].strip()
         except IOError:
-            return checksum
+            return None
 
         LOGGER.debug('Checksum of existing file is %s', checksum)
         return checksum
