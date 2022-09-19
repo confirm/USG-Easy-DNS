@@ -114,12 +114,22 @@ class UniFiController:
         for client in self.get_clients():
             if 'fixed_ip' not in client:
                 continue
-
-            ip   = client['fixed_ip']
+                
             name = client['name'] if 'name' in client else client['hostname']
             name = re.sub(pattern=r'[\s_-]+', repl='-', string=name, flags=re.IGNORECASE)
             name = re.sub(pattern='[^0-9a-z-]', repl='', string=name, flags=re.IGNORECASE)
 
+            if client['use_fixedip']:
+                ip = client['fixed_ip']    
+                LOGGER.debug("Got Fixed IP for %s", name)                          
+            else:
+                with open("/config/dnsmasq-dhcp.leases","r") as dhcpfile:
+                    for line in dhcpfile:
+                        if client['mac'] in line:
+                            ip = line.split(" ")[2]
+                            LOGGER.debug("Got DHCP IP for %s", name)
+                            break 
+            
             LOGGER.debug('Adding host %s with IP address %s', name, ip)
             clients.append((ip, name))
 
