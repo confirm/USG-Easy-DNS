@@ -1,3 +1,5 @@
+DISCLAIMER: First github adventure... NFI how to properly attribute this!
+
 Introduction
 ============
 
@@ -6,7 +8,7 @@ Purpose
 
 This project / repository contains a Python script and description on how to make the [UniFi Security Gateway](https://www.ui.com/unifi-routing/usg/) DNS service automatically resolve aliases (and only aliases) specified in the UniFi controller.
 
-**This means you only have to define a client alias & a fixed IP address in the UniFi UI and the DNS server is automatically updated with that entry!**
+**This means you only have to define a client alias and/or a fixed IP address in the UniFi UI and the DNS server is automatically updated with that entry!**
 
 Rationale
 ---------
@@ -91,8 +93,8 @@ DNS Configuration
 Of course the DNS server needs to be informed about this new file as well. Here's an example for that configuration:
 
 ```
-# Don't use the default /etc/hosts file.
-set service dns forwarding options no-hosts
+# Don't use the default /etc/hosts file.  I did not use this.
+#set service dns forwarding options no-hosts
 
 # Use the generated /config/user-data/hosts instead.
 set service dns forwarding options addn-hosts=/config/user-data/hosts 
