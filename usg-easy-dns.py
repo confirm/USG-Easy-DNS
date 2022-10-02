@@ -112,7 +112,7 @@ class UniFiController:
         clients = []
 
         for client in self.get_clients():
-            if 'fixed_ip' not in client:
+            if 'use_fixedip' not in client:
                 continue
                 
             name = client['name'] if 'name' in client else client['hostname']
@@ -128,7 +128,10 @@ class UniFiController:
                         if client['mac'] in line:
                             ip = line.split(" ")[2]
                             LOGGER.debug("Got DHCP IP for %s", name)
-                            break 
+                            break
+                    else:
+                        LOGGER.debug("No IP found for %s, skipping", name)
+                        continue
             
             LOGGER.debug('Adding host %s with IP address %s', name, ip)
             clients.append((ip, name))
