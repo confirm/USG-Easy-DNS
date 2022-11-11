@@ -120,8 +120,9 @@ class UniFiController:
             name = re.sub(pattern=r'[\s_-]+', repl='-', string=name, flags=re.IGNORECASE)
             name = re.sub(pattern='[^0-9a-z-]', repl='', string=name, flags=re.IGNORECASE)
 
-            LOGGER.debug('Adding host %s with IP address %s', name, ip)
-            clients.append((ip, name))
+            if name:
+                LOGGER.debug('Adding host %s with IP address %s', name, ip)
+                clients.append((ip, name))
 
         clients.sort(key=lambda item: item[0])
 
